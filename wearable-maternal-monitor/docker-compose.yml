@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  mqtt:
+    image: eclipse-mosquitto:2
+    ports: ["1883:1883", "9001:9001"]
+    volumes:
+      - ./cloud/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  db:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: maternal
+    ports: ["3306:3306"]
+    volumes:
+      - db-data:/var/lib/mysql
+  adminer:
+    image: adminer
+    ports: ["8080:8080"]
+volumes:
+  db-data:
